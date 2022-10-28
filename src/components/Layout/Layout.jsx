@@ -1,14 +1,18 @@
+import { Suspense } from 'react';
 import { Navigation } from 'components/Navigation/Navigation';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 export const Layout = () => {
+  const locatiom = useLocation();
   return (
     <>
       <header>
-        <Navigation />
+        {!locatiom.pathname.includes(`details`) && <Navigation />}
       </header>
       <main>
-        <Outlet />
+        <Suspense fallback={null}>
+          <Outlet />
+        </Suspense>
       </main>
     </>
   );
